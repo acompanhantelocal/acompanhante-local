@@ -2,50 +2,55 @@
 
 Este é o frontend moderno (React + Vite) para o site de classificados "Acompanhante Local", integrado via API REST ao WordPress.
 
-## 🚀 Como Começar
+## 📁 Estrutura de Arquivos (GitHub)
 
-### 1. Instalação Local
-1. Certifique-se de ter o [Node.js](https://nodejs.org/) instalado.
-2. Abra o terminal na pasta do projeto.
-3. Instale as dependências:
-   ```bash
-   npm install
-   ```
-4. Rode o servidor de desenvolvimento:
-   ```bash
-   npm run dev
-   ```
+Para o deploy funcionar corretamente, organize seus arquivos no GitHub assim:
 
-### 2. Integração com WordPress
-Para que o site funcione com seu WordPress, edite o arquivo `src/App.tsx`:
+```
+/ (Raiz do Repositório)
+├── .github/
+│   └── workflows/
+│       └── deploy.yml
+├── src/                      <-- MOVA SEUS CÓDIGOS PARA CÁ
+│   ├── components/
+│   │   ├── AdCard.tsx
+│   │   └── Layout.tsx
+│   ├── services/
+│   │   ├── geminiService.ts
+│   │   └── wpApi.ts
+│   ├── App.tsx
+│   ├── index.tsx
+│   └── types.ts
+├── index.html                <-- FICA NA RAIZ
+├── package.json
+├── vite.config.ts
+├── tailwind.config.js
+├── postcss.config.js
+└── README.md
+```
+
+**Arquivos para IGNORAR (Não subir):**
+* `metadata.json` (Exclusivo do editor de IA)
+* `node_modules/` (Pasta pesada gerada automaticamente)
+* `.env` (Se tiver chaves secretas locais)
+
+## 🚀 Instalação e Deploy
+
+### 1. Configuração do WordPress
+Antes de subir o site, certifique-se de ter os plugins instalados no seu WordPress:
+* **JWT Authentication for WP-REST-API** (Configurar chave secreta no wp-config.php)
+* **CPT UI** (Criar post type: `anuncio`)
+* **ACF** (Criar campos: `preco`, `whatsapp`, `destaque`, `categoria`)
+* **ACF to REST API**
+
+### 2. Configurar URL
+Edite o arquivo `src/App.tsx`:
 1. Mude `const USE_WORDPRESS_INTEGRATION = true;`
 2. Mude `const SITE_URL = 'https://seu-site-wordpress.com.br';`
 
-**Plugins Obrigatórios no WordPress:**
-* JWT Authentication for WP-REST-API
-* CPT UI (Custom Post Type UI) -> Criar slug `anuncio`
-* ACF (Advanced Custom Fields) -> Criar campos `preco`, `whatsapp`, `destaque`
-* ACF to REST API
-
-### 3. Deploy Automático (HostGator via GitHub)
-
-Este projeto já vem configurado com **GitHub Actions**.
-
-1. Crie um repositório no GitHub e suba este código.
-2. O arquivo `.github/workflows/deploy.yml` já está criado.
-3. Vá em **Settings > Secrets and variables > Actions** no seu repositório.
-4. Adicione os seguintes segredos (Repository Secrets):
-   * `FTP_SERVER`: ex: `ftp.seusite.com.br`
-   * `FTP_USERNAME`: Seu usuário de FTP
-   * `FTP_PASSWORD`: Sua senha de FTP
-
-Toda vez que você der um `git push` para a branch `main`, o site será atualizado automaticamente na HostGator.
-
----
-
-## 📁 Estrutura de Pastas Importante
-
-* `.github/workflows/deploy.yml`: Configuração do Deploy Automático.
-* `src/App.tsx`: Lógica principal e rotas.
-* `src/services/wpApi.ts`: Todas as chamadas para o WordPress.
-* `src/types.ts`: Definições dos dados.
+### 3. Deploy Automático (HostGator)
+1. Crie os "Secrets" no seu repositório GitHub (Settings > Secrets > Actions):
+   * `FTP_SERVER`
+   * `FTP_USERNAME`
+   * `FTP_PASSWORD`
+2. Faça o push para a branch `main`. O GitHub Actions fará o resto.
