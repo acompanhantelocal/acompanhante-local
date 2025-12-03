@@ -70,3 +70,7 @@ export const AdCard: React.FC<AdCardProps> = ({ ad, onClick }) => {
     </div>
   );
 };
+      </div>
+    </div>
+  );
+};
