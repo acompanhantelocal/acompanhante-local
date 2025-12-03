@@ -8,7 +8,7 @@ import { Edit3, Trash2, PlusCircle, Search, Check, Wand2, User as UserIcon, X, I
 
 // --- WORDPRESS CONFIG ---
 // ⚠️ PASSO 1: QUANDO ESTIVER PRONTO, COLOQUE A URL DO SEU SITE AQUI
-const SITE_URL = 'https://seu-site-wordpress.com.br'; 
+const SITE_URL = 'https://acompanhante-local.site/wp-admin/'; 
 
 const WP_CONFIG = {
   baseUrl: SITE_URL, 
